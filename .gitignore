@@ -1,3 +1,4 @@
 node_modules
 .secrets
 .deployed_address
+.next

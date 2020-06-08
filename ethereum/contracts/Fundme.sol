@@ -2,21 +2,7 @@
 pragma solidity >=0.6.0 <0.7.0;
 
 
-contract FundFactory{
-    address[] public activeFunds;
-
-    function createFund(uint goal,string memory cname,string memory description) public{
-        address Fund = address(new Fund(goal,msg.sender,cname,description));
-        activeFunds.push(Fund);
-    }
-
-    function getActiveFunds() public view returns(address [] memory){
-        return activeFunds;
-    }
-}
-
-
-contract Fund {
+contract Fundme {
     
     address payable public createrAddress;
     string public createrName;
