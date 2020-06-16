@@ -1,7 +1,7 @@
 const HDWalletProvider = require("truffle-hdwallet-provider");
 const fs = require('fs-extra'); 
 const Web3 = require("web3");
-const compiledFactory = require("../client/build/FundFactory.json");
+const compiledFactory = require("../fundme/build/FundFactory.json");
 const mneumonic = fs.readFileSync(".secrets").toString().trim();
 const provider = new HDWalletProvider(
   mneumonic,
@@ -27,4 +27,4 @@ const deploy = async () => {
 };
 deploy();
 
-//deployed at 0x44202c7AB11D8d4554C84cf3C23B77c7bD186589
+//contract deployed at 0x240887ABf0c6D4E0Bab74FC96B770F0422c91558

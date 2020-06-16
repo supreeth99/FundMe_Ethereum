@@ -1,28 +1,15 @@
 // solium-disable linebreak-style
 pragma solidity >=0.6.0 <0.7.0;
-
-
-contract Fundme {
-    
+pragma experimental ABIEncoderV2;
+contract Fundme{
     address payable public createrAddress;
     string public createrName;
-    
     uint public goal;
     string public description;
-    
     uint public totalContribution;
     uint public currentBalance;
     uint public totalContributors;
-   
-    contributerDetails [] public donators;
-    
-    struct contributerDetails {
-        string contributorName;
-        uint contributedAmount;
-    }
-    
-    // mapping(address => address) public checkaddress;
-    // mapping(address => bool) public Checknew;
+    string[] public donators;
     modifier restricted(){
         require(createrAddress == msg.sender,"This function can be called only by Owner.");
         _;
@@ -31,31 +18,25 @@ contract Fundme {
     constructor (uint amount,address creater,string memory cname,string memory desc) public{
         createrAddress = payable(creater);
         goal = amount;
-        createrName =  cname;
+        createrName = cname;
         description = desc;
-        currentBalance= address(this).balance;
+        currentBalance = address(this).balance;
     }
-    
     function donate(string memory name) public payable{
         require(msg.value >= 100,"Minimum contribution is 100 Wei");
         totalContribution = totalContribution + msg.value;
-        currentBalance= address(this).balance;
-        contributerDetails memory newContibutor= contributerDetails({
-            contributorName : name,
-            contributedAmount : msg.value
-        });
-        donators.push(newContibutor);
+        currentBalance = address(this).balance;
+        donators.push(name);
         //Checknew[msg.sender]=true;
         totalContributors++;
     }
-    
     function checkout(uint value) public restricted{
         require(address(this).balance>=value,"Requested amount is more than current balance.");
         createrAddress.transfer(value);
         currentBalance = address(this).balance;
     }
     function getDetails() public view returns(
-      uint,uint,uint,address,string memory,string memory
+      uint,uint,uint,address,string memory,string memory,uint
       ) {
       return(
         goal,
@@ -63,15 +44,11 @@ contract Fundme {
         address(this).balance,
         createrAddress,
         description,
-        createrName
+        createrName,
+        totalContribution
         );
     }
-    
-    function getDonaterDetails(uint index) public view returns(
-        string memory,uint){
-            return(
-                donators[index].contributorName,
-                donators[index].contributedAmount
-                );
-        }
+    function getDonaterDetails() public view returns(string[] memory){
+        return donators;
+    }
 }
