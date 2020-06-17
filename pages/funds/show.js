@@ -115,6 +115,7 @@ class fundShow extends Component {
     } catch (err) {
       console.log("Error:",err);
       this.setState({ errorMessage2: err.message });
+      alert(this.state.errorMessage2);
     }
     this.setState({ loading: false });
     this.setState({ open: false });

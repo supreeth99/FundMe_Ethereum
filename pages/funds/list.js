@@ -54,6 +54,7 @@ console.log("props");
     } catch (err) {
       console.log("Error:",err);
       this.setState({ errorMessage: err.message });
+      alert(this.state.errorMessage);
     }
     this.setState({ loading: false });
     this.setState({ open: false });

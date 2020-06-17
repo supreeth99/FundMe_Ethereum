@@ -29,6 +29,5 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
-/ethereum/.secrets
-/ethereum/.deployed_address
+/ethereum/.*
 /ethereum/truffle-config.js
